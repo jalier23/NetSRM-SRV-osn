@@ -8,18 +8,41 @@ services:
       # If you want to mount a custom directory, change the volume mapping to:
       # - /path/to/your/directory:/data
       - ./data:/data
+      - ./ocr-data:/ocr-data
     ports:
-      - 3000:3000
+      - 127.0.0.1:3000:3000
     environment:
       - MEILI_ADDR=http://karakeep-meilisearch:7700
       - BROWSER_WEB_URL=http://karakeep-chrome:9222
       - NEXTAUTH_SECRET=oh04oCKF4WKr1Hn2n9WkzitOfxH6pczxVdMaEaFBGlqAOtD5
       - MEILI_MASTER_KEY=Szh1kBGGuENpjjLoyPzxPxLP17wZy1rCSfps5VkKJ7s1ZQOd
-      #- NEXTAUTH_URL=https://karakeep.netsrm.ru
+      - NEXTAUTH_URL=https://karakeep.netsrm.ru
       - DATA_DIR=/data # DON'T CHANGE THIS
       - CRAWLER_STORE_SCREENSHOT=true
       - CRAWLER_FULL_PAGE_SCREENSHOT=true
       - CRAWLER_ENABLE_ADBLOCKER=true
+      - SMTP_HOST=mail.netsrm.ru
+      - SMTP_PORT=587
+      - SMTP_SECURE=false
+      - SMTP_USER=info@netsrm.ru
+      - SMTP_PASSWORD=Swer32456521
+      - SMTP_FROM="info"
+      - OAUTH_CLIENT_ID=
+      - OAUTH_CLIENT_SECRET=
+      - OAUTH_WELLKNOWN_URL=https://sso.netsrm.ru/application/o/karakeep/.well-known/openid-configuration
+      - OAUTH_PROVIDER_NAME=authentik
+      - OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING=true
+      # Optional: You can add this if you only want to allow login with Authentik
+      - DISABLE_PASSWORD_AUTH=true
+      # Optional but highly recommended:
+      - DISABLE_SIGNUPS=true
+      - OCR_CACHE_DIR=/ocr-data
+      - OCR_LANGS="eng,rus"
+      - OLLAMA_BASE_URL=http://10.100.0.4:11434
+      - INFERENCE_TEXT_MODEL=llama3.1:latest
+      - INFERENCE_IMAGE_MODEL=llava:13b
+      - EMBEDDING_TEXT_MODEL=llama3.1:latest
+      - INFERENCE_LANG=russian
   karakeep-chrome:
     image: gcr.io/zenika-hub/alpine-chrome:124
     container_name: karakeep-chrome
@@ -36,7 +59,7 @@ services:
     container_name: karakeep-meilisearch
     restart: unless-stopped
     environment:
-      - MEILI_NO_ANALYTICS="true"
-      - MEILI_MASTER_KEY="Szh1kBGGuENpjjLoyPzxPxLP17wZy1rCSfps5VkKJ7s1ZQOd"
+      - MEILI_NO_ANALYTICS=true
+      - MEILI_MASTER_KEY=Szh1kBGGuENpjjLoyPzxPxLP17wZy1rCSfps5VkKJ7s1ZQOd
     volumes:
       - ./meili_data:/meili_data
