@@ -10,12 +10,14 @@ services:
       - ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB=20
       - ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SYNC_SIZE_LIMIT_MB=50
       - ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB=20
+      - ACTUAL_LOGIN_METHOD=openid
+      - ACTUAL_ALLOWED_LOGIN_METHODS=openid
       - ACTUAL_OPENID_DISCOVERY_URL=https://sso.netsrm.ru/application/o/actual-budget/
-      - ACTUAL_OPENID_CLIENT_ID=aKGCSuFMnU5uf9LR6h3utXHaTezYae0iwZGJx3Ue
-      - ACTUAL_OPENID_CLIENT_SECRET=m8NhDGcRAqeFOaBVj5c9EcyOkiF0rb3rSjNkFinmIl2sGNhQha5poP1gexdEDNaflHZ27SKCvww4Cj2PiDPWS8EOO2IdHAqMj0zpZSboqIT03Ac0NMGmuQCAUmvlxivc
+      - ACTUAL_OPENID_CLIENT_ID=
+      - ACTUAL_OPENID_CLIENT_SECRET=
       - ACTUAL_OPENID_SERVER_HOSTNAME=https://actual.netsrm.ru
     volumes:
-      - ./actual-data:/data
+      - ./data:/data
     healthcheck:
       # Enable health check for the instance
       test: ['CMD-SHELL', 'node src/scripts/health-check.js']
