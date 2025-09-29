@@ -1,0 +1,13 @@
+ervices:
+  documentserver:
+    image: onlyoffice/documentserver
+    container_name: documentserver
+    environment:
+      - JWT_SECRET=HzMoJBGYQqTrOYGkOJuezJL9k6SM0fQb
+    volumes:
+      - ./docs/logs:/var/log/onlyoffice
+      - ./docs/lib:/var/lib/onlyoffice
+      - ./docs/postgresql:/var/lib/postgresql
+    ports:
+      - "127.0.0.1:88:80"
+    restart: always
