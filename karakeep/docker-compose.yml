@@ -1,0 +1,42 @@
+services:
+  karakeep-web:
+    image: ghcr.io/karakeep-app/karakeep:release
+    container_name: karakeep-web
+    restart: unless-stopped
+    volumes:
+      # By default, the data is stored in a docker volume called "data".
+      # If you want to mount a custom directory, change the volume mapping to:
+      # - /path/to/your/directory:/data
+      - ./data:/data
+    ports:
+      - 3000:3000
+    environment:
+      - MEILI_ADDR=http://karakeep-meilisearch:7700
+      - BROWSER_WEB_URL=http://karakeep-chrome:9222
+      - NEXTAUTH_SECRET=oh04oCKF4WKr1Hn2n9WkzitOfxH6pczxVdMaEaFBGlqAOtD5
+      - MEILI_MASTER_KEY=Szh1kBGGuENpjjLoyPzxPxLP17wZy1rCSfps5VkKJ7s1ZQOd
+      #- NEXTAUTH_URL=https://karakeep.netsrm.ru
+      - DATA_DIR=/data # DON'T CHANGE THIS
+      - CRAWLER_STORE_SCREENSHOT=true
+      - CRAWLER_FULL_PAGE_SCREENSHOT=true
+      - CRAWLER_ENABLE_ADBLOCKER=true
+  karakeep-chrome:
+    image: gcr.io/zenika-hub/alpine-chrome:124
+    container_name: karakeep-chrome
+    restart: unless-stopped
+    command:
+      - --no-sandbox
+      - --disable-gpu
+      - --disable-dev-shm-usage
+      - --remote-debugging-address=0.0.0.0
+      - --remote-debugging-port=9222
+      - --hide-scrollbars
+  karakeep-meilisearch:
+    image: getmeili/meilisearch:v1.13.3
+    container_name: karakeep-meilisearch
+    restart: unless-stopped
+    environment:
+      - MEILI_NO_ANALYTICS="true"
+      - MEILI_MASTER_KEY="Szh1kBGGuENpjjLoyPzxPxLP17wZy1rCSfps5VkKJ7s1ZQOd"
+    volumes:
+      - ./meili_data:/meili_data

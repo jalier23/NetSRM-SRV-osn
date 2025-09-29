@@ -1,0 +1,16 @@
+services:
+  nextcloud-talk-server:
+    image: nextcloud/aio-talk:latest
+    container_name: nextcloud-talk
+    ports:
+      - 127.0.0.1:8081:8081
+      - 3478:3478/tcp
+      - 3478:3478/udp
+    environment:
+      - NC_DOMAIN=cloud.netsrm.ru
+      - TALK_HOST=srv-web.netsrm.ru
+      - TALK_PORT=3478
+      - TURN_SECRET=dea2b37f75a71666f6879ac2f72c934ba717f416c6bb2a60a0d20809c61c1c09
+      - SIGNALING_SECRET=5c4e6b690a7a6e9071976ce21f4be8a46d15c888aeff0657265f2e8946e70981
+      - INTERNAL_SECRET=e662c82c69ca832d6ffaddceccb97ff34c0236b4b581f92756de8cb62f910c83
+    restart: always
