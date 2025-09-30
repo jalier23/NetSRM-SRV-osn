@@ -1,4 +1,4 @@
-ervices:
+services:
   documentserver:
     image: onlyoffice/documentserver
     container_name: documentserver
