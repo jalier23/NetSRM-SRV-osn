@@ -1,0 +1,16 @@
+services:
+  nextcloud:
+    image: 'ghcr.io/nextcloud/nextcloud-appapi-harp:release'
+    container_name: appapi-harp
+    hostname: appapi-harp
+    environment:
+      - HP_SHARED_KEY='Sdewq32231432'
+      - NC_INSTANCE_URL='https://cloud.netsrm.ru'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './certs:/certs'
+
+    ports:
+      - '8780:8780'
+      - '8782:8782'
+    restart: unless-stopped
