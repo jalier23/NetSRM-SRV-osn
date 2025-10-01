@@ -39,9 +39,9 @@ services:
       - OCR_CACHE_DIR=/ocr-data
       - OCR_LANGS="eng,rus"
       - OLLAMA_BASE_URL=http://10.100.0.4:11434
-      - INFERENCE_TEXT_MODEL=llama3.1:latest
-      - INFERENCE_IMAGE_MODEL=llava:13b
-      - EMBEDDING_TEXT_MODEL=llama3.1:latest
+      - INFERENCE_TEXT_MODEL=gemma3:latest
+      - INFERENCE_IMAGE_MODEL=gemma3:latest
+      - EMBEDDING_TEXT_MODEL=gemma3:latest
       - INFERENCE_LANG=russian
   karakeep-chrome:
     image: gcr.io/zenika-hub/alpine-chrome:124
