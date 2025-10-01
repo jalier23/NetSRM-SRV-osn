@@ -1,0 +1,8 @@
+services:
+  nextcloud-whiteboard-server:
+    image: ghcr.io/nextcloud-releases/whiteboard:stable
+    ports:
+      - "127.0.0.1:3002:3002"
+    environment:
+      NEXTCLOUD_URL: https://cloud.netsrm.ru
+      JWT_SECRET_KEY: dUNNvOe7RQGTzqaG0EOm9SsUnJGFJ1q3MtePR6GayAOGxTJAOUW5FhHyrhHFjjdX
