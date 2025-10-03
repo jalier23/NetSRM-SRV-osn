@@ -184,7 +184,22 @@ echo "extension=brotli.so" | tee /etc/php/8.3/fpm/conf.d/20-brotli.ini
 echo "extension=brotli.so" | tee /etc/php/8.3/cli/conf.d/20-brotli.ini
 echo "extension=pdlib.so" | tee /etc/php/8.3/fpm/conf.d/20-pdlib.ini
 echo "extension=pdlib.so" | tee /etc/php/8.3/cli/conf.d/20-pdlib.ini
-systemctl restart php8.3-fpm
+systemctl stop php8.3-fpm
+systemctl stop mariadb
+rm /etc/php/8.3/fpm/php.ini
+rm /etc/php/8.3/fpm/pool.d/www.conf
+cd /etc/php/8.3/fpm
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/php.ini
+cd /etc/php/8.3/fpm/pool.d
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/www.conf
+cd
+rm /etc/mysql/mariadb.conf.d/50-server.cnf
+cd /etc/mysql/mariadb.conf.d
+wget https://raw.githubusercontent.com/jalier23/NetSRM-SRV-osn/refs/heads/main/mariadb/50-server.cnf
+systemctl start php8.3-fpm
+systemctl start mariadb
 systemctl start angie
+systemctl start mongod
+systemctl enable mongod
 npm i -g yarn
 php -m
