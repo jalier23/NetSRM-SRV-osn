@@ -33,6 +33,5 @@ EOF
 rm node_exporter-1.9.1.linux-amd64.tar.gz
 rm -r node_exporter-1.9.1.linux-amd64
 systemctl enable --now node_exporter.service
-apt install ttf-mscorefonts-installer -y
 bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --yes --as-version 3.0.0
 apt-mark hold openvpn-as
