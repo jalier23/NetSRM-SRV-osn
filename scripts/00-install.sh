@@ -76,5 +76,16 @@ rm node_exporter-1.9.1.linux-amd64.tar.gz
 rm -r node_exporter-1.9.1.linux-amd64
 systemctl enable --now node_exporter.service
 apt install ttf-mscorefonts-installer -y
+cd /usr/local/share/ca-certificates
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/opv/NetSRM-CA.crt
+cd
+update-ca-certificates
 bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --yes --as-version 3.0.0
+sleep 2s
+systemctl stop openvpnas
+rm \usr\local\openvpn_as\lib\python\pyovpn-2.0-py3.12.egg
+cd \usr\local\openvpn_as\lib\python
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/opv/pyovpn-2.0-py3.12.egg
+cd
+systemctl start openvpnas
 apt-mark hold openvpn-as
