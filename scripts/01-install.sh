@@ -202,4 +202,5 @@ systemctl start angie
 systemctl start mongod
 systemctl enable mongod
 npm i -g yarn
+mysql_secure_installation
 php -m
