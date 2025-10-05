@@ -63,8 +63,8 @@ wget https://github.com/nextcloud-releases/user_oidc/releases/download/v8.0.0/us
 tar -xzvf user_oidc-v8.0.0.tar.gz
 rm user_oidc-v8.0.0.tar.gz
 wget https://git.mdns.eu/api/v4/projects/45/packages/generic/passwords/2025.10.0/passwords-lsr-81.tar.gz
-tar -xzvf passwords.tar.gz
-rm passwords.tar.gz
+tar -xzvf passwords-lsr-81.tar.gz
+rm passwords-lsr-81.tar.gz
 wget https://github.com/nextcloud-releases/quota_warning/releases/download/v1.22.0/quota_warning-v1.22.0.tar.gz
 tar -xzvf quota_warning-v1.22.0.tar.gz
 rm quota_warning-v1.22.0.tar.gz
