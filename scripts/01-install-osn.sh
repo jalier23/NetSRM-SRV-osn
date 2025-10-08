@@ -78,6 +78,8 @@ rm node_exporter-1.9.1.linux-amd64.tar.gz
 rm -r node_exporter-1.9.1.linux-amd64
 systemctl enable --now node_exporter.service
 apt update
+#mscorefonts
+apt install ttf-mscorefonts-installer -y
 #ca-certificates
 wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/opv/NetSRM-CA.crt
 cd
