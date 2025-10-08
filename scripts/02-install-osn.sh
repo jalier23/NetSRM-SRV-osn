@@ -85,43 +85,31 @@ cd /etc/mysql/mariadb.conf.d
 wget https://raw.githubusercontent.com/jalier23/NetSRM-SRV-osn/refs/heads/main/mariadb/50-server.cnf
 cd
 systemctl start mariadb
-#php
+#php8.4
 apt install imagemagick ffmpeg libopenblas-dev liblapack-dev build-essential graphicsmagick nodejs libsodium-dev -y
-apt install php-fpm php-{json,common,pgsql,mysql,sqlite3,gd,curl,mbstring,intl,gmp,bcmath,xml,imagick,bz2,zip,ldap,smbclient,tokenizer,xmlrpc,soap,dev,pear,redis} -y
+apt install php8.4-fpm php8.4-{common,pgsql,gd,curl,mbstring,intl,gmp,bcmath,xml,imagick,bz2,zip,ldap,smbclient,xmlrpc,soap,dev,redis} -y
+sleep 2s
+systemctl stop php8.4-fpm
+rm /etc/php/8.4/fpm/php.ini
+rm /etc/php/8.4/fpm/pool.d/www.conf
+cd /etc/php/8.4/fpm
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/8-4/php.ini
+cd /etc/php/8.4/fpm/pool.d
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/8-4/www.conf
+cd
+systemctl start php8.4-fpm
+#php8.3
+apt install php8.3-fpm php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,curl,zip,ldap} -y
 sleep 2s
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 sleep 2s
-systemctl restart php8.3-fpm
-pecl install brotli
-sleep 2s
-cd /opt
-git clone https://github.com/davisking/dlib.git
-cd dlib/dlib
-mkdir build
-cd build
-cmake -DBUILD_SHARED_LIBS=ON ..
-make
-make install
-cd /opt
-git clone https://github.com/goodspb/pdlib.git
-cd pdlib
-phpize
-./configure --enable-debug
-PKG_CONFIG_PATH=/usr/local/lib/pkgconfig ./configure --enable-debug
-make
-make install
-cd
-cho "extension=brotli.so" | tee /etc/php/8.3/fpm/conf.d/20-brotli.ini
-echo "extension=brotli.so" | tee /etc/php/8.3/cli/conf.d/20-brotli.ini
-echo "extension=pdlib.so" | tee /etc/php/8.3/fpm/conf.d/20-pdlib.ini
-echo "extension=pdlib.so" | tee /etc/php/8.3/cli/conf.d/20-pdlib.ini
 systemctl stop php8.3-fpm
 rm /etc/php/8.3/fpm/php.ini
 rm /etc/php/8.3/fpm/pool.d/www.conf
 cd /etc/php/8.3/fpm
-wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/php.ini
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/8-3/php.ini
 cd /etc/php/8.3/fpm/pool.d
-wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/www.conf
+wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/php/8-3/www.conf
 cd
 systemctl start php8.3-fpm
 systemctl start angie
