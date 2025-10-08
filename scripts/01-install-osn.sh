@@ -28,6 +28,11 @@ echo \
 apt update
 # nodejs rep
 curl -sL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+#postgresql rep
+install -d /usr/share/postgresql-common/pgdg
+curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+. /etc/os-release
+sh -c "echo 'deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $VERSION_CODENAME-pgdg main' > /etc/apt/sources.list.d/pgdg.list"
 # MariaDB-11 rep
 curl -o /etc/apt/keyrings/mariadb-keyring.pgp 'https://mariadb.org/mariadb_release_signing_key.pgp'
 cat <<EOF | $SUDO tee /etc/apt/sources.list.d/mariadb.sources >/dev/null
@@ -81,9 +86,11 @@ apt update
 #mscorefonts
 apt install ttf-mscorefonts-installer -y
 #ca-certificates
+cd /usr/local/share/ca-certificates
 wget https://github.com/jalier23/NetSRM-SRV-osn/raw/refs/heads/main/opv/NetSRM-CA.crt
 cd
 update-ca-certificates
+add-apt-repository ppa:ondrej/php
 #openvpnas
 bash <(curl -fsS https://packages.openvpn.net/as/install.sh) --yes --as-version 3.0.0
 sleep 2s
